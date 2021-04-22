@@ -13,7 +13,6 @@ input {
 .global-affect {
     border: 1px solid black;
     font-size: small;
-    padding: 0px 5px;
   }
 
 .center {
@@ -22,18 +21,9 @@ input {
 
 #rater_notes {
     resize: none;
-    width: 100%;
+    width: 90%;
 }
 
-.faces {
-    padding: 10px 20px;
-    font-size: 30px;
-    background-color: default;
-}
-
-.faces.selected {
-    background-color: gray;
-}
 
 .info {
     background-color: aqua;            
@@ -42,27 +32,4 @@ input {
 .error {
     background-color: red;
     color: white;
-}
-
-#data-table {
-    padding: 0px 0px 0px 10px;
-    font-family: calibri, arial;
-    font-size: small;
-    width: 550px;
-}
-
-#data-table-div {
-    margin: 5px auto 0px 0px;
-    max-height: 300px;
-    overflow-y: scroll;
-}
-
-#data-table thead td {
-    background-color: #8CCCF1;
-}
-
-#data-table td {
-    border: 1px solid #466E85;
-    width: 136px;
-    padding: 4px;
 }

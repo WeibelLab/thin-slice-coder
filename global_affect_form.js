@@ -1,8 +1,8 @@
-function globalAffectForm() {
+function globalAffectForm(slice_num, time_start, time_end) {
     return `
     <details>
         <summary>
-            <h3>Global Affect Rating (click to show/hide form)</h3>
+            <b>Thin Slice ${slice_num} - ${time_start} to ${time_end}</b>
         </summary>
         <div>
             Assign ratings based on your overall affective impressions.<br><br>
@@ -15,7 +15,7 @@ function globalAffectForm() {
                         (1=low/none, 6=high)
                     </th>
                     <th class="global-affect">
-                        Provider
+                        Primary Provider
                     </th>
                     <th class="global-affect">
                         Patient
@@ -23,13 +23,19 @@ function globalAffectForm() {
                     <th class="global-affect">
                         Patient Partner
                     </th>
+                    <th class="global-affect">
+                        Secondary Provider
+                    </th>
+                    <th class="global-affect">
+                        Other Staff
+                    </th>
                 </tr>
                 <tr>
                     <td class="global-affect">
                         Anger/Irritation
                     </td>
                     <td class="center">
-                        <select id="provider-anger">
+                        <select id="provider-anger-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -40,7 +46,7 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="patient-anger">
+                        <select id="patient-anger-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -51,7 +57,29 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="partner-anger">
+                        <select id="partner-anger-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="second-provider-anger-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="other-staff-anger-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -67,7 +95,7 @@ function globalAffectForm() {
                         Anxiety/Nervousness
                     </td>
                     <td class="center">
-                        <select id="provider-anxiety">
+                        <select id="provider-anxiety-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -78,7 +106,7 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="patient-anxiety">
+                        <select id="patient-anxiety-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -89,7 +117,29 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="partner-anxiety">
+                        <select id="partner-anxiety-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="second-provider-anxiety-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="other-staff-anxiety-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -108,7 +158,7 @@ function globalAffectForm() {
                         ----
                     </td>
                     <td class="center">
-                        <select id="patient-depression">
+                        <select id="patient-depression-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -119,7 +169,7 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="partner-depression">
+                        <select id="partner-depression-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -128,6 +178,12 @@ function globalAffectForm() {
                             <option value="5">5</option>
                             <option value="6">6</option>
                         </select>
+                    </td>
+                    <td class="center">
+                        ----
+                    </td>
+                    <td class="center">
+                        ----
                     </td>
                 </tr>
                 <tr>
@@ -138,7 +194,7 @@ function globalAffectForm() {
                         ----
                     </td>
                     <td class="center">
-                        <select id="patient-upset">
+                        <select id="patient-upset-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -149,7 +205,7 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="partner-upset">
+                        <select id="partner-upset-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -158,6 +214,12 @@ function globalAffectForm() {
                             <option value="5">5</option>
                             <option value="6">6</option>
                         </select>
+                    </td>
+                    <td class="center">
+                        ----
+                    </td>
+                    <td class="center">
+                        ----
                     </td>
                 </tr>
             </table><br>
@@ -172,7 +234,7 @@ function globalAffectForm() {
                         (1=low/none, 6=high)
                     </th>
                     <th class="global-affect">
-                        Provider
+                        Primary Provider
                     </th>
                     <th class="global-affect">
                         Patient
@@ -180,13 +242,19 @@ function globalAffectForm() {
                     <th class="global-affect">
                         Patient Partner
                     </th>
+                    <th class="global-affect">
+                        Secondary Provider
+                    </th>
+                    <th class="global-affect">
+                        Other Staff
+                    </th>
                 </tr>
                 <tr>
                     <td class="global-affect">
                         Dominance/Assertiveness
                     </td>
                     <td class="center">
-                        <select id="provider-dominance">
+                        <select id="provider-dominance-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -197,7 +265,7 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="patient-dominance">
+                        <select id="patient-dominance-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -208,7 +276,29 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="partner-dominance">
+                        <select id="partner-dominance-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="second-provider-dominance-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="other-staff-dominance-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -224,7 +314,7 @@ function globalAffectForm() {
                         Interest/Attentiveness
                     </td>
                     <td class="center">
-                        <select id="provider-interest">
+                        <select id="provider-interest-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -235,7 +325,7 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="patient-interest">
+                        <select id="patient-interest-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -246,7 +336,29 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="partner-interest">
+                        <select id="partner-interest-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="second-provider-interest-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="other-staff-interest-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -262,7 +374,7 @@ function globalAffectForm() {
                         Friendliness/Warmth
                     </td>
                     <td class="center">
-                        <select id="provider-warmth">
+                        <select id="provider-warmth-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -273,7 +385,7 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="patient-warmth">
+                        <select id="patient-warmth-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -284,7 +396,29 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="partner-warmth">
+                        <select id="partner-warmth-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="second-provider-warmth-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="other-staff-warmth-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -300,7 +434,7 @@ function globalAffectForm() {
                         Responsiveness/Engagement
                     </td>
                     <td class="center">
-                        <select id="provider-engage">
+                        <select id="provider-engage-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -311,7 +445,7 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="patient-engage">
+                        <select id="patient-engage-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -322,7 +456,29 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="partner-engage">
+                        <select id="partner-engage-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="second-provider-engage-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="other-staff-engage-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -338,7 +494,7 @@ function globalAffectForm() {
                         Sympathetic/Empathetic
                     </td>
                     <td class="center">
-                        <select id="provider-sympathy">
+                        <select id="provider-sympathy-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -349,7 +505,7 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="patient-sympathy">
+                        <select id="patient-sympathy-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -360,7 +516,29 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="partner-sympathy">
+                        <select id="partner-sympathy-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="second-provider-sympathy-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="other-staff-sympathy-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -376,7 +554,7 @@ function globalAffectForm() {
                         Hurried/Rushed (Dr)
                     </td>
                     <td class="center">
-                        <select id="provider-hurry">
+                        <select id="provider-hurry-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -391,6 +569,28 @@ function globalAffectForm() {
                     </td>
                     <td class="center">
                         ----
+                    </td>
+                    <td class="center">
+                        <select id="second-provider-hurry-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="other-staff-hurry-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -398,7 +598,7 @@ function globalAffectForm() {
                         Respectfulness
                     </td>
                     <td class="center">
-                        <select id="provider-respect">
+                        <select id="provider-respect-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -409,7 +609,7 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="patient-respect">
+                        <select id="patient-respect-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -420,7 +620,29 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="partner-respect">
+                        <select id="partner-respect-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="second-provider-respect-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="other-staff-respect-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -436,7 +658,7 @@ function globalAffectForm() {
                         Interactivity
                     </td>
                     <td class="center">
-                        <select id="provider-interact">
+                        <select id="provider-interact-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -447,7 +669,7 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="patient-interact">
+                        <select id="patient-interact-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -458,7 +680,29 @@ function globalAffectForm() {
                         </select>
                     </td>
                     <td class="center">
-                        <select id="partner-interact">
+                        <select id="partner-interact-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="second-provider-interact-${slice_num}">
+                            <option value="0"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </td>
+                    <td class="center">
+                        <select id="other-staff-interact-${slice_num}">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -470,30 +714,51 @@ function globalAffectForm() {
                     </td>
                 </tr>
             </table>
-            <h3>Rater Notes</h3>
+            <b>Other Notes</b>
             What did you notice about rating this interaction?<br>
             How accurate do you think you were? Any other comments?
-            <textarea id="rater_notes" rows="4"></textarea>
+            <textarea id="rater_notes-${slice_num}" rows="4"></textarea>
         </div>
     </details>
     `
 }
 
-const global_affect_form = globalAffectForm();
-document.getElementById('global_affect_import').insertAdjacentHTML("afterbegin", global_affect_form);
+function openThinSlice(slice_select) {
+    $('details').attr('open',false);
+    $('#slice_'+slice_select).children().attr('open',true);
+}
+
+function calculateSlices() {
+    return Math.ceil(video_player.duration / beepDelay);
+}
+
+function createThinSlices() {
+    // console.log(video_player.duration);
+    // console.log("create " + calculateSlices() + " thin slices");
+    var num_slices = calculateSlices();
+    for(i=1; i<=num_slices; i++)
+    {
+        var div_slice = document.createElement('div');
+        div_slice.id = "slice_"+i;
+        div_slice.innerHTML = globalAffectForm(i, toHMS((i-1)*beepDelay), toHMS((i)*beepDelay));
+        document.getElementById('global_affect_import').appendChild(div_slice);  
+    }
+}
+// document.getElementById('global_affect_import').insertAdjacentHTML("afterbegin", global_affect_form);
 
 
 function getGlobalAffectInput() {
     var global_affect_categories = ["anger", "anxiety", "depression", "upset",
     "dominance", "interest", "warmth", "engage", "sympathy", "hurry", "respect", "interact"]
-    var global_affect_speakers = ["provider", "patient", "partner"]
+    var global_affect_speakers = ["provider", "patient", "partner", "second-provider", "other-staff"]
 
-    var globalAffectData = "";
+    var globalAffectData = "slice,time-start,time-end,";
     var category;
     var speaker;
     var lookup_id;
-    var cat_idx
-    var speak_idx
+    var cat_idx;
+    var speak_idx;
+    var tot_slices = calculateSlices();
 
     for (cat_idx=0; cat_idx < global_affect_categories.length-1; cat_idx++) {
         for (speak_idx=0; speak_idx < global_affect_speakers.length; speak_idx++) {
@@ -511,14 +776,30 @@ function getGlobalAffectInput() {
     }
     speaker = global_affect_speakers[speak_idx];
     lookup_id = speaker+"-"+category;
-    globalAffectData += lookup_id+"\n";
+    globalAffectData += lookup_id+",rater_notes\n";
 
     var data;
-    for (cat_idx=0; cat_idx < global_affect_categories.length-1; cat_idx++) {
-        for (speak_idx=0; speak_idx < global_affect_speakers.length; speak_idx++) {
-            category = global_affect_categories[cat_idx];
+    for (slice_num=1; slice_num <= tot_slices; slice_num++){
+        globalAffectData += slice_num+","+toHMS((slice_num-1)*beepDelay)+","+toHMS((slice_num)*beepDelay)+",";
+        for (cat_idx=0; cat_idx < global_affect_categories.length-1; cat_idx++) {
+            for (speak_idx=0; speak_idx < global_affect_speakers.length; speak_idx++) {
+                category = global_affect_categories[cat_idx];
+                speaker = global_affect_speakers[speak_idx];
+                lookup_id = speaker+"-"+category+"-"+slice_num;
+                try {
+                    var el = document.getElementById(lookup_id);
+                    data = el.options[el.selectedIndex].text;
+                }
+                catch(err) {
+                    data = "-";
+                }
+                globalAffectData += data+",";
+            }
+        }
+        category = global_affect_categories[cat_idx];
+        for (speak_idx=0; speak_idx < global_affect_speakers.length-1; speak_idx++) {
             speaker = global_affect_speakers[speak_idx];
-            lookup_id = speaker+"-"+category;
+            lookup_id = speaker+"-"+category+"-"+slice_num;
             try {
                 var el = document.getElementById(lookup_id);
                 data = el.options[el.selectedIndex].text;
@@ -528,11 +809,8 @@ function getGlobalAffectInput() {
             }
             globalAffectData += data+",";
         }
-    }
-    category = global_affect_categories[cat_idx];
-    for (speak_idx=0; speak_idx < global_affect_speakers.length-1; speak_idx++) {
         speaker = global_affect_speakers[speak_idx];
-        lookup_id = speaker+"-"+category;
+        lookup_id = speaker+"-"+category+"-"+slice_num;
         try {
             var el = document.getElementById(lookup_id);
             data = el.options[el.selectedIndex].text;
@@ -541,21 +819,12 @@ function getGlobalAffectInput() {
             data = "-";
         }
         globalAffectData += data+",";
+    
+        lookup_id = "rater_notes-"+slice_num;
+        var notes_content = document.getElementById(lookup_id).value;
+        notes_content = notes_content.replace(/(\r\n|\n|\r)/gm," ");
+        globalAffectData += notes_content+"\n";
     }
-    speaker = global_affect_speakers[speak_idx];
-    lookup_id = speaker+"-"+category;
-    try {
-        var el = document.getElementById(lookup_id);
-        data = el.options[el.selectedIndex].text;
-    }
-    catch(err) {
-        data = "-";
-    }
-    globalAffectData += data+"\n";
-
-    var notes_content = document.getElementById("rater_notes").value;
-    notes_content = notes_content.replace(/(\r\n|\n|\r)/gm," ");
-    globalAffectData += "Rater Notes:,"+notes_content+"\n\n";
 
     return globalAffectData
 

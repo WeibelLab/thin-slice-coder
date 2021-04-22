@@ -11,19 +11,18 @@ function video2XSize(){
 }
 
 var playSelectedFile = function (event) {
-  var file = this.files[0]
-  var type = file.type
-  var videoNode = document.querySelector('video')
-  var canPlay = videoNode.canPlayType(type)
-  if (canPlay === '') canPlay = 'no'
-  var isError = canPlay === 'no'
-
+  var file = this.files[0];
+  var type = file.type;
+  var videoNode = document.querySelector('video');
+  var canPlay = videoNode.canPlayType(type);
+  if (canPlay === '') {canPlay = 'no'};
+  var isError = canPlay === 'no';
   if (isError) {
-    return
+    return;
   }
 
-  var fileURL = URL.createObjectURL(file)
-  videoNode.src = fileURL
+  var fileURL = URL.createObjectURL(file);
+  videoNode.src = fileURL;
 }
 
 var inputNode = document.querySelector('#selector')
