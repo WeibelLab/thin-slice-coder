@@ -6,6 +6,10 @@ function globalAffectForm(slice_num, time_start, time_end) {
         </summary>
         <div>
             Assign ratings based on your overall affective impressions.<br><br>
+            Silence Percentage: 
+            <select id="silence-percent-${slice_num}">
+            </select>
+            <br>
             <table>
                 <tr>
                     (Sect. 1) a "1" means <u>no</u> signs of the affect
@@ -732,6 +736,25 @@ function calculateSlices() {
     return Math.ceil(video_player.duration / beepDelay);
 }
 
+function addSilenceOptions(num_slices) {
+    for(i=1; i<=num_slices; i++)
+    {
+        var silence_id = "silence-percent-"+i;
+        var silence_drop = document.getElementById(silence_id);
+        for (j=0; j<Math.round(beepDelay/60); j++){
+            var opt_val = Math.round(100/Math.round(beepDelay/60))*j;
+            var option = document.createElement("OPTION");
+            option.innerHTML = opt_val;
+            option.value = opt_val;
+            silence_drop.options.add(option);
+        }
+        var option = document.createElement("OPTION");
+        option.innerHTML = 100;
+        option.value = 100;
+        silence_drop.options.add(option);
+    }
+}
+
 function createThinSlices() {
     // console.log(video_player.duration);
     // console.log("create " + calculateSlices() + " thin slices");
@@ -743,6 +766,7 @@ function createThinSlices() {
         div_slice.innerHTML = globalAffectForm(i, toHMS((i-1)*beepDelay), toHMS((i)*beepDelay));
         document.getElementById('global_affect_import').appendChild(div_slice);  
     }
+    addSilenceOptions(num_slices);
 }
 // document.getElementById('global_affect_import').insertAdjacentHTML("afterbegin", global_affect_form);
 
@@ -752,7 +776,7 @@ function getGlobalAffectInput() {
     "dominance", "interest", "warmth", "engage", "sympathy", "hurry", "respect", "interact"]
     var global_affect_speakers = ["provider", "patient", "partner", "second-provider", "other-staff"]
 
-    var globalAffectData = "slice,time-start,time-end,";
+    var globalAffectData = "slice,time-start,time-end,silence-percent,";
     var category;
     var speaker;
     var lookup_id;
@@ -776,11 +800,15 @@ function getGlobalAffectInput() {
     }
     speaker = global_affect_speakers[speak_idx];
     lookup_id = speaker+"-"+category;
-    globalAffectData += lookup_id+",rater_notes\n";
+    globalAffectData += lookup_id+",slice_notes\n";
 
     var data;
     for (slice_num=1; slice_num <= tot_slices; slice_num++){
         globalAffectData += slice_num+","+toHMS((slice_num-1)*beepDelay)+","+toHMS((slice_num)*beepDelay)+",";
+        lookup_id = "silence-percent-"+slice_num;
+        var el = document.getElementById(lookup_id);
+        data = el.options[el.selectedIndex].text;
+        globalAffectData += data+",";
         for (cat_idx=0; cat_idx < global_affect_categories.length-1; cat_idx++) {
             for (speak_idx=0; speak_idx < global_affect_speakers.length; speak_idx++) {
                 category = global_affect_categories[cat_idx];
@@ -826,6 +854,10 @@ function getGlobalAffectInput() {
         globalAffectData += notes_content+"\n";
     }
 
+    var session_notes = document.getElementById("session_notes").value;
+    session_notes = session_notes.replace(/(\r\n|\n|\r)/gm," ");
+    globalAffectData += "\nSession notes:,"+session_notes;
+    
     return globalAffectData
 
 }
