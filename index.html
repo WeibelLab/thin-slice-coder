@@ -1,0 +1,55 @@
+<html>
+    <script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2012.3.1114/js/kendo.all.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2012.3.1114/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2012.3.1114/styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <body>
+        <h1>Gut Check Coder</h1>
+        <p>To use: load video, play video, and push/hold up/down arrow keys to create annotations. When finished click "Download CSV"</p>
+        <!-- <div>
+            <button onclick="videoDefaultSize()">Default Video Size</button>
+            <button onclick="video2XSize()">2x Video Size</button>
+        </div> -->
+        <div style="margin-bottom: 5px;">
+            <input id="selector" type="file" accept="video/*, audio/*"/>
+        </div>
+        <div style="margin-bottom: 5px;">
+            <span>
+                Metronome / time delay (leave blank to disable)<br>
+                <span style="float:left">Minutes: </span>
+                <input id="beepTimMin" type="number" min="1" style="width: 100px; float:left" onfocusout="setBeep()"/>
+                <span style="float:left"> Seconds: </span>
+                <input id="beepTimSec" type="number" min="1" style="width: 100px;" onfocusout="setBeep()"/>
+            </span>
+        </div>
+        <div style="width: 100%; min-height: 400px;">
+            <div style="float: left; width: calc(100% - 650px)">
+                <video id="player" controls width="100%"></video>
+            </div>
+            <div style="float: right; width: 600px;">
+                <div style="padding: 10px; height: 200px; max-width: 500px;">
+                    <div id="global_affect_import" style="width: 100%; margin-top: 10px;">
+                        <!-- import global_affect_form here -->
+                    </div>
+                </div>
+                <!-- <button class="faces" id="negativeButton" style="margin-left: 10px;" onclick="sliderOnKeypress(-1)">&#128543;</button>
+                <button class="faces" id="neutralButton" onclick="sliderOnKeypress(0)">&#128528;</button>
+                <button class="faces" id="positiveButton" onclick="sliderOnKeypress(1)">&#128522;</button>
+                <div id="data-table-div">
+                    <table id="data-table"></table>
+                </div> -->
+            </div>
+        </div>
+        <!-- <div style="width: 100%">
+            
+        </div> -->
+        <div style="width: 90%; margin: 20px 0px;">
+            <input type="button" value="Download CSV" onclick="downloadData()">
+        </div>
+    </body>
+    <script src="local_video_player.js"></script>
+    <script src="slider_recorder.js"></script>
+    <script src="global_affect_form.js"></script>
+
+</html>
