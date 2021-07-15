@@ -20,18 +20,23 @@ function globalAffectForm(slice_num, time_start, time_end) {
                     </th>
                     <th class="global-affect">
                         Primary Provider
+                        <input type="checkbox" class="present" id="provider-${slice_num}">
                     </th>
                     <th class="global-affect">
                         Patient
+                        <input type="checkbox" class="present" id="patient-${slice_num}">
                     </th>
                     <th class="global-affect">
                         Patient Partner
+                        <input type="checkbox" class="present" id="partner-${slice_num}">
                     </th>
                     <th class="global-affect">
                         Secondary Provider
+                        <input type="checkbox" class="present" id="second-provider-${slice_num}">
                     </th>
                     <th class="global-affect">
                         Other Staff
+                        <input type="checkbox" class="present" id="other-staff-${slice_num}">
                     </th>
                 </tr>
                 <tr>
@@ -755,6 +760,61 @@ function addSilenceOptions(num_slices) {
     }
 }
 
+function addCheckboxLogic() {
+    var checkboxes = document.getElementsByClassName('present');
+    for (cb of checkboxes){
+        disableAllDropdown(cb.id);
+        cb.onclick = function() {
+            var check_stat = document.getElementById(this.id).checked;
+            if (check_stat){
+                enableDropdowns(this.id); 
+            }
+            else{
+                disableDropdowns(this.id); 
+            }
+        };
+    }
+}
+
+function disableAllDropdown(el_id) {
+    split_id = el_id.split("-");
+    reg_string = '[id^="'+split_id[0]+'"][id$="'+split_id.pop()+'"]';
+    results = document.querySelectorAll(reg_string);
+    for (var i = 1; i < results.length; i++) {
+        results[i].disabled = true;
+    }
+}
+
+function enableDropdowns(el_id) {
+    split_id = el_id.split("-");
+    reg_string = '[id^="'+split_id[0]+'"][id$="'+split_id.pop()+'"]';
+    results = document.querySelectorAll(reg_string);
+    for (var i = 1; i < results.length; i++) {
+        results[i].disabled = false;
+        if (results[i].id.includes("anger")){
+            results[i].value = 1;
+        }else if (results[i].id.includes("anxiety")){
+            results[i].value = 1;
+        }else if (results[i].id.includes("depression")){
+            results[i].value = 1;
+        }else if (results[i].id.includes("upset")){
+            results[i].value = 1;
+        }else {
+            results[i].value = 3;
+        }
+    }
+}
+
+function disableDropdowns(el_id) {
+    split_id = el_id.split("-");
+    reg_string = '[id^="'+split_id[0]+'"][id$="'+split_id.pop()+'"]';
+    results = document.querySelectorAll(reg_string);
+    for (var i = 1; i < results.length; i++) {
+        results[i].value = 0;
+        results[i].disabled = true;
+    }
+}
+
 function createThinSlices() {
     // console.log(video_player.duration);
     // console.log("create " + calculateSlices() + " thin slices");
@@ -767,6 +827,7 @@ function createThinSlices() {
         document.getElementById('global_affect_import').appendChild(div_slice);  
     }
     addSilenceOptions(num_slices);
+    addCheckboxLogic(num_slices);
 }
 // document.getElementById('global_affect_import').insertAdjacentHTML("afterbegin", global_affect_form);
 
