@@ -776,6 +776,13 @@ function addCheckboxLogic() {
     }
 }
 
+function enablePresentCheckboxes() {
+    var checkboxes = document.getElementsByClassName('present');
+    for (cb of checkboxes){
+        cb.disabled = false;
+    }
+}
+
 function disableAllDropdown(el_id) {
     split_id = el_id.split("-");
     reg_string = '[id^="'+split_id[0]+'"][id$="'+split_id.pop()+'"]';
@@ -827,7 +834,8 @@ function createThinSlices() {
         document.getElementById('global_affect_import').appendChild(div_slice);  
     }
     addSilenceOptions(num_slices);
-    addCheckboxLogic(num_slices);
+    addCheckboxLogic();
+    enablePresentCheckboxes();
 }
 // document.getElementById('global_affect_import').insertAdjacentHTML("afterbegin", global_affect_form);
 
