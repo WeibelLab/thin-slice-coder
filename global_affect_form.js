@@ -831,14 +831,74 @@ function createThinSlices() {
         var div_slice = document.createElement('div');
         div_slice.id = "slice_"+i;
         div_slice.innerHTML = globalAffectForm(i, toHMS((i-1)*beepDelay), toHMS((i)*beepDelay));
-        document.getElementById('global_affect_import').appendChild(div_slice);  
+        document.getElementById('global_affect_import').appendChild(div_slice);
+        addVideoDownloadButton(i);
     }
     addSilenceOptions(num_slices);
     addCheckboxLogic();
     enablePresentCheckboxes();
 }
-// document.getElementById('global_affect_import').insertAdjacentHTML("afterbegin", global_affect_form);
 
+async function blobToArrayBuffer(blob) {
+    if ('arrayBuffer' in blob) return await blob.arrayBuffer();
+    
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject;
+        reader.readAsArrayBuffer(blob);
+    });
+}
+
+let fileURI = new Blob();
+let blobArray = new Blob();
+async function saveBlob(file, uri){
+    fileURI = uri;
+    blobArray = await blobToArrayBuffer(file);
+}
+
+function downloadVideoFromBlob(start, end, name) 
+{
+    let blob = sliceBlob(start, end)
+    let uri = window.URL.createObjectURL(blob);
+    var link = document.createElement("a");
+    link.setAttribute('download', name);
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+}
+
+let bytes;
+let dur;
+let bytePerSec;
+function prepToSlice(){
+    bytes = blobArray.byteLength;
+    dur = video_player.duration;
+    bytePerSec = Math.floor(bytes / dur);
+    console.log(bytePerSec);
+}
+
+function sliceBlob(start, end){
+    prepToSlice();
+    idx_start = start*bytePerSec;
+    idx_end = end*bytePerSec;
+    let tempBlob = blobArray.slice(idx_start, idx_end);
+    let newBlob = new Blob([tempBlob], { type: 'video/webm' });
+    return newBlob;
+}
+
+function addVideoDownloadButton(i){
+    let timeStart = (i-1)*beepDelay;
+    let timeEnd = (i)*beepDelay;
+    let videoBtn = document.createElement("button");
+    videoBtn.innerHTML = "Download Slice "+i;
+    videoBtn.style.marginRight = "5px";
+    videoBtn.onclick = function () {
+        downloadVideoFromBlob(timeStart,timeEnd,"slice"+i+".webm")
+    };
+    document.getElementById('videoClips').appendChild(videoBtn);
+}
 
 function getGlobalAffectInput() {
     var global_affect_categories = ["anger", "anxiety", "depression", "upset",

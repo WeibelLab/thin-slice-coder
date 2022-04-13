@@ -43,6 +43,7 @@ var playSelectedFile = function (event) {
 
   var fileURL = URL.createObjectURL(file);
   videoNode.src = fileURL;
+  saveBlob(file, fileURL);
   loadWaveform();
 }
 
